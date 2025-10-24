@@ -89,6 +89,14 @@ html, body {
     background-color: rgb(104, 104, 104);
     height: 170px;
     width: 170px;
+    cursor: pointer;
+    transition: transform 0.7s ease;
+}
+
+.voice-chat:hover {
+    transform: scale(1.07);
+    background-color: rgb(183, 183, 183);
+    box-shadow: 3px 3px 12px black;
 }
 
 .input {
