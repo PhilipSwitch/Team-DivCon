@@ -33,11 +33,12 @@ font-size: 18px;
 font-family: 'Poppins';
 font-weight: 600;
 color: white;
-background-color: rgb(146, 53, 213); 
+background-color: rgb(174, 89, 234); 
 padding: 12px 24px;
 border: none;
 border-radius: 8px;
 cursor: pointer;
+box-shadow: 5px 5px;
 }
 
 .btn:hover {
