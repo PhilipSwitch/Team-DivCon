@@ -1,0 +1,522 @@
+@import url('https://fonts.googleapis.com/css2?family=BBH+Sans+Hegarty&family=Caprasimo&family=Poppins:wght@300;400;600&display=swap');
+
+.diagonal-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(135deg, rgb(100, 0, 150) 0%, rgb(80, 80, 80) 50%, rgb(120, 0, 180) 100%);
+}
+
+.textandbutton {
+    display: flex;
+    place-items: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.text {
+    font-family: 'BBH Sans Hegarty', sans-serif;
+    font-weight: 300;
+    color: white;
+    font-size: 28px;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.btn {
+    font-size: clamp(16px, 3vw, 20px);
+    font-family: 'Poppins';
+    font-weight: 600;
+    color: white;
+    background-color: rgb(174, 89, 234);
+    padding: clamp(12px, 2vh, 18px) clamp(24px, 4vw, 36px);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: rgb(146, 53, 213);
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar {
+  width: 280px;
+  background: linear-gradient(135deg, rgb(220, 180, 220) 0%, rgb(240, 240, 240) 100%);  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 15px;
+  height: 100vh;
+  overflow: hidden; /* no global scroll */
+}
+
+.schedules-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#schedules-list {
+  max-height: 200px; /* you can adjust this height */
+  overflow-y: auto; /* only the schedule list scrolls */
+  overflow-x: hidden /* prevent horizontal scroll */;
+  padding-right: 5px; /* little space for scrollbar */
+}
+
+/* Scrollbar style (optional for neatness) */
+#schedules-list::-webkit-scrollbar {
+  width: 6px;
+}
+#schedules-list::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.main-content {
+    height: 100%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.textpage {
+    background-color: rgba(223, 213, 235, 0.2);
+    height: 500px;
+    width: 800px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(150, 100, 200, 0.5) rgba(223, 213, 235, 0.1);
+}
+
+.textpage::-webkit-scrollbar {
+  width: 8px;
+}
+
+.textpage::-webkit-scrollbar-thumb {
+  background-color: rgba(150, 100, 200, 0.5);
+  border-radius: 4px;
+}
+
+
+.text-input {
+    background-color: white;
+    height: 50px;
+    width: 800px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 7px;
+    padding: 4px;
+    margin-bottom: 20px;
+}
+
+
+
+.send-btn {
+    display: flex;
+align-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: gray;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+.voice-chat {
+    border-radius: 50%;
+    border: 2px solid rgba(223, 213, 235, 0.5);
+    background: radial-gradient(circle, rgba(150, 100, 200, 0.7) 0%, rgba(120, 80, 180, 0.7) 50%, rgba(100, 50, 150, 0.7) 100%);
+    height: 170px;
+    width: 170px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 10px rgba(120, 80, 180, 0.3);
+}
+
+.voice-chat.listening {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    background-color: rgb(100, 50, 150);
+  }
+  50% {
+    transform: scale(1.1);
+    background-color: rgb(130, 70, 200);
+  }
+  100% {
+    transform: scale(1);
+    background-color: rgb(100, 50, 150);
+  }
+}
+
+
+.input {
+    border: none;
+    width: 700px;
+    margin-left: 10px;
+}
+
+.tasks-section, .schedules-section {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.tasks-section h2, .schedules-section h2 {
+    color: black;
+}
+
+.tasks-section ul, .schedules-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tasks-section li, .schedules-section li {
+    background-color: rgb(223, 213, 235);
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#add-schedule-btn {
+  background-color: rgb(174, 89, 234);
+  color: white;
+  border: none;
+  border-radius: 12px; /* circular edges */
+  padding: 10px 20px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+#add-schedule-btn:hover {
+  background-color: rgb(146, 53, 213);
+  transform: scale(1.03);
+}
+/* Modal overlay */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal content box */
+.modal-content {
+  background: linear-gradient(135deg, rgb(255, 255, 255), rgb(230, 220, 240));
+  border-radius: 20px;
+  padding: 30px;
+  width: 400px;
+  box-shadow: 0 0 20px rgba(100, 0, 150, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Inputs */
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+}
+#task-schedule-select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+}
+.tasks-section {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: calc(100vh - 120px); /* leaves room for login button etc. */
+}
+.schedules-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#schedules-list {
+  max-height: 200px; /* you can adjust this height */
+  overflow-y: auto; /* only the schedule list scrolls */
+  padding-right: 5px; /* little space for scrollbar */
+  cursor: pointer;
+
+}
+/* Scrollbar style (optional for neatness) */
+#schedules-list::-webkit-scrollbar {
+  width: 6px;
+}
+#schedules-list::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.schedules-section ul,
+#tasks-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.schedules-section li {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 230px; /* fixed width for clean alignment */
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* Buttons inside modal */
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.modal-buttons button {
+  background-color: rgb(174, 89, 234);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.modal-buttons button:hover {
+  background-color: rgb(146, 53, 213);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+.voice-input-btn {
+  background-color: rgb(174, 89, 234);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  align-self: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.voice-input-btn:hover {
+  background-color: rgb(146, 53, 213);
+  transform: scale(1.05);
+}
+
+.voice-input-btn.listening {
+  background-color: rgb(100, 50, 150);
+  box-shadow: 0 0 12px rgba(140, 80, 200, 0.6);
+  color: #fff;
+  animation: pulse 1.2s infinite;
+}
+#view-schedule-btn {
+  background-color: rgb(174, 89, 234);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+#view-schedule-btn:hover {
+  background-color: rgb(146, 53, 213);
+  transform: scale(1.03);
+}
+
+/* Container inside textpage for schedules */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.schedule-card {
+  background-color: rgba(223, 213, 235, 0.5);
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.schedule-card:hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+}
+
+.schedule-card h3 {
+  color: rgb(100, 50, 150);
+  margin-bottom: 8px;
+}
+
+.schedule-card p {
+  color: #333;
+  font-size: 14px;
+}
+@keyframes fadeZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+#add-task-btn, #view-tasks-btn {
+  background-color: rgb(174, 89, 234);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+#add-task-btn:hover, #view-tasks-btn:hover {
+  background-color: rgb(146, 53, 213);
+  transform: scale(1.03);
+}
+/* Prevent text overflow and add fade-out shadow */
+.schedule-card p {
+  position: relative;
+  max-height: 80px; /* limit visible height */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.schedule-card p::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(to bottom, rgba(223,213,235,0), rgba(223,213,235,0.9));
+}
+
+.same-style-btn {
+  background-color: rgb(174, 89, 234);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.same-style-btn:hover {
+  background-color: rgb(146, 53, 213);
+  transform: scale(1.03);
+}
+/* === Add Task Modal Buttons === */
+#submit-task-btn {
+  background-color: #5b2ecc;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#submit-task-btn:hover {
+  background-color: #7a4af5;
+  transform: scale(1.05);
+}
+
+/* Cancel (X) button on modal top-left */
+#close-task-modal {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.25s ease, transform 0.2s ease;
+  z-index: 10;
+}
+
+#close-task-modal:hover {
+  color: #e74c3c; /* red hover */
+  transform: scale(1.2);
+}

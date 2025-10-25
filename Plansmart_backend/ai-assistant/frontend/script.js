@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Authentication check on page load
 async function checkAuthentication() {
     try {
@@ -54,6 +55,8 @@ window.addEventListener('DOMContentLoaded', () => {
     checkAuthentication();
 });
 
+=======
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
 const voiceBtn = document.getElementById('voice-btn');
 const transcriptEl = document.getElementById('transcript');
 const tasksList = document.getElementById('tasks-list');
@@ -65,6 +68,7 @@ const sendBtn = document.getElementById('send-btn');
 let recognition;
 let isListening = false;
 let finalTranscript = '';
+<<<<<<< HEAD
 let keepListening = false; // Flag to keep listening continuously
 
 const MAX_MESSAGES = 50; // Limit the number of messages in the transcript
@@ -74,6 +78,8 @@ function trimTranscript() {
         transcriptEl.removeChild(transcriptEl.firstChild);
     }
 }
+=======
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
 
 if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -81,13 +87,20 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     recognition.continuous = true;
     recognition.interimResults = true;
     recognition.lang = 'en-US';
+<<<<<<< HEAD
     recognition.maxAlternatives = 1;
+=======
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
 
     recognition.onstart = () => {
         isListening = true;
         voiceBtn.classList.add('listening');
+<<<<<<< HEAD
         transcriptEl.innerHTML += '<p>Listening...</p>';
         transcriptEl.scrollTop = transcriptEl.scrollHeight;
+=======
+        transcriptEl.textContent = 'Listening...';
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
         finalTranscript = '';
     };
 
@@ -124,6 +137,7 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         isListening = false;
         voiceBtn.classList.remove('listening');
         if (!finalTranscript) {
+<<<<<<< HEAD
             transcriptEl.innerHTML += '<p>Stopped listening.</p>';
             transcriptEl.scrollTop = transcriptEl.scrollHeight;
         }
@@ -132,13 +146,20 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             setTimeout(() => {
                 recognition.start();
             }, 1000); // Restart after 1 second
+=======
+            transcriptEl.textContent = 'Stopped listening.';
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
         }
     };
 
     recognition.onerror = (event) => {
         console.error('Speech recognition error:', event.error);
+<<<<<<< HEAD
         transcriptEl.innerHTML += '<p>Error occurred. Please try again.</p>';
         transcriptEl.scrollTop = transcriptEl.scrollHeight;
+=======
+        transcriptEl.textContent = 'Error occurred. Please try again.';
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
         isListening = false;
         voiceBtn.classList.remove('listening');
     };
@@ -151,18 +172,27 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         // Optional: Handle when speech ends
     };
 } else {
+<<<<<<< HEAD
     transcriptEl.innerHTML += '<p>Speech recognition not supported in this browser.</p>';
     transcriptEl.scrollTop = transcriptEl.scrollHeight;
+=======
+    transcriptEl.textContent = 'Speech recognition not supported in this browser.';
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
     voiceBtn.disabled = true;
 }
 
 voiceBtn.addEventListener('click', () => {
     if (recognition) {
         if (isListening) {
+<<<<<<< HEAD
             keepListening = false; // Stop continuous listening
             recognition.stop();
         } else {
             keepListening = true; // Start continuous listening
+=======
+            recognition.stop();
+        } else {
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
             recognition.start();
         }
     }
@@ -175,6 +205,7 @@ async function processVoiceInput(text) {
             headers: {
                 'Content-Type': 'application/json',
             },
+<<<<<<< HEAD
             credentials: 'include',
             body: JSON.stringify({ text }),
         });
@@ -197,12 +228,30 @@ async function processVoiceInput(text) {
     } catch (error) {
         console.error('Error processing input:', error);
         displayMessage(`Error: ${error.message || 'An unexpected error occurred'}`);
+=======
+            body: JSON.stringify({ text }),
+        });
+        const data = await response.json();
+        console.log('Processed:', data);
+        // Display AI response
+        displayMessage(data.message);
+        // Check if query is present, load filtered tasks
+        if (data.parsed.query.completed !== undefined) {
+            loadTasks(data.parsed.query.completed);
+        } else {
+            loadTasks();
+        }
+        loadSchedules();
+    } catch (error) {
+        console.error('Error processing input:', error);
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
     }
 }
 
 function displayMessage(message) {
     const transcriptEl = document.getElementById('transcript');
     // Append AI response to conversation history
+<<<<<<< HEAD
     const aiMessage = document.createElement('div');
     aiMessage.className = 'ai-message';
     aiMessage.innerHTML = `<strong>🤖 AI Assistant:</strong><p>${message.replace(/\n/g, '<br>')}</p>`;
@@ -214,6 +263,13 @@ function displayMessage(message) {
         // Clean message for speech (remove emojis and extra formatting)
         const cleanMessage = message.replace(/[🤖📅✅⏰✨📋📉🌅☀️🌙🎯]/g, '').trim();
         const utterance = new SpeechSynthesisUtterance(cleanMessage);
+=======
+    transcriptEl.innerHTML += `<p>AI: ${message}</p>`;
+    transcriptEl.scrollTop = transcriptEl.scrollHeight; // Auto-scroll
+    // Add TTS for AI responses
+    if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(message);
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
         window.speechSynthesis.speak(utterance);
     }
 }
@@ -224,6 +280,7 @@ async function loadTasks(completedFilter) {
         if (completedFilter !== undefined) {
             url += `?completed=${completedFilter}`;
         }
+<<<<<<< HEAD
         const response = await fetch(url, {
             credentials: 'include',
         });
@@ -232,12 +289,22 @@ async function loadTasks(completedFilter) {
         if (tasks.length === 0) {
             tasksList.innerHTML = '<li style="color: rgb(180, 160, 200); font-size: 12px; padding: 10px;">No tasks yet. Add one to get started!</li>';
         }
+=======
+        const response = await fetch(url);
+        const tasks = await response.json();
+        tasksList.innerHTML = '';
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
         tasks.forEach(task => {
             const li = document.createElement('li');
             li.className = `task-item ${task.completed ? 'completed' : ''}`;
             li.innerHTML = `
+<<<<<<< HEAD
                 <span>${task.description}${task.due_date ? `<br><small style="opacity: 0.7;">Due: ${new Date(task.due_date).toLocaleString()}</small>` : ''}</span>
                 ${!task.completed ? `<button class="complete-btn" onclick="markDone(${task.id})">✓</button>` : ''}
+=======
+                <span>${task.description} ${task.due_date ? `(Due: ${new Date(task.due_date).toLocaleString()})` : ''}</span>
+                ${!task.completed ? `<button class="complete-btn" onclick="markDone(${task.id})">Mark Done</button>` : ''}
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
             `;
             tasksList.appendChild(li);
         });
@@ -248,6 +315,7 @@ async function loadTasks(completedFilter) {
 
 async function loadSchedules() {
     try {
+<<<<<<< HEAD
         const response = await fetch('http://localhost:5000/get_schedules', {
             credentials: 'include',
         });
@@ -261,6 +329,15 @@ async function loadSchedules() {
             li.className = 'schedule-item';
             li.innerHTML = `
                 <span>${schedule.title}<br><small style="opacity: 0.7;">${new Date(schedule.start_time).toLocaleString()}</small></span>
+=======
+        const response = await fetch('http://localhost:5000/get_schedules');
+        const schedules = await response.json();
+        schedulesList.innerHTML = '';
+        schedules.forEach(schedule => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span>${schedule.title} - ${new Date(schedule.start_time).toLocaleString()}</span>
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
                 <button class="edit-btn" onclick="editSchedule(${schedule.id}, '${schedule.title}', '${schedule.start_time}')">Edit</button>
             `;
             schedulesList.appendChild(li);
@@ -280,7 +357,10 @@ async function editSchedule(id, title, startTime) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+<<<<<<< HEAD
                 credentials: 'include',
+=======
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
                 body: JSON.stringify({ title: newTitle, start_time: newTime }),
             });
             loadSchedules();
@@ -294,7 +374,10 @@ async function markDone(taskId) {
     try {
         await fetch(`http://localhost:5000/mark_done/${taskId}`, {
             method: 'PUT',
+<<<<<<< HEAD
             credentials: 'include',
+=======
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
         });
         loadTasks();
     } catch (error) {
@@ -314,14 +397,41 @@ sendBtn.addEventListener('click', () => {
     }
 });
 
+<<<<<<< HEAD
 // Allow Enter key to send message
 inputField.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         sendBtn.click();
+=======
+// Login functionality
+loginBtn.addEventListener('click', async () => {
+    const username = prompt('Enter username:');
+    const password = prompt('Enter password:');
+    if (username && password) {
+        try {
+            const response = await fetch('http://localhost:5000/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+            const data = await response.json();
+            if (response.ok) {
+                alert('Login successful!');
+                // Optionally, update UI to show logged in state
+            } else {
+                alert(data.error);
+            }
+        } catch (error) {
+            console.error('Error logging in:', error);
+        }
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
     }
 });
 
 // Navigation functionality with AI integration
+<<<<<<< HEAD
 // Hook up existing buttons
 const addScheduleBtn = document.getElementById('add-schedule-btn');
 if (addScheduleBtn) {
@@ -342,6 +452,16 @@ if (addTaskBtn) {
         processVoiceInput(aiPrompt);
     });
 }
+=======
+document.getElementById('schedule-btn').addEventListener('click', () => {
+    // Trigger AI-guided schedule creation
+    const aiPrompt = "I want to add a new schedule. What details do you need?";
+    // Append user message to transcript
+    transcriptEl.innerHTML += `<p>You: "${aiPrompt}"</p>`;
+    transcriptEl.scrollTop = transcriptEl.scrollHeight;
+    processVoiceInput(aiPrompt);
+});
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
 
 document.getElementById('task-overview-btn').addEventListener('click', () => {
     // Trigger AI-guided task overview
@@ -357,4 +477,7 @@ window.addEventListener('load', () => {
     loadTasks();
     loadSchedules();
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 59bb2c1d88c8d1282a6ea935485986ff7bd3de97
