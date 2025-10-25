@@ -1,11 +1,14 @@
-from flask import Flask, request, jsonify, session
+from flask import Flask, request, jsonify, session, render_template, send_from_directory
 from flask_cors import CORS
 from models import db, Task, Schedule, User
 from scheduler import start_scheduler, schedule_reminder
-import re
+import re, os
 from datetime import datetime, timedelta
 
-app = Flask(__name__)
+app = Flask(__name__,
+    template_folder='templates',  # <-- tell Flask where your HTMLs are
+    static_folder='static'        # <-- tell Flask where your CSS/JS are
+)
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ai_assistant.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -72,6 +75,32 @@ def process_input():
     db.session.commit()
     return jsonify({'message': 'Processed', 'parsed': parsed})
 
+# @app.route('/add_schedule', methods=['POST'])
+# def add_schedule():
+#     data = request.get_json()
+#     title = data.get('title')
+#     description = data.get('description')
+#     start_time = data.get('start_time')
+#     end_time = data.get('end_time')
+
+#     if not title or not start_time:
+#         return jsonify({'error': 'Missing title or start time'}), 400
+
+#     try:
+#         new_schedule = Schedule(
+#             title=title,
+#             description=description,
+#             start_time=datetime.fromisoformat(start_time),
+#             end_time=datetime.fromisoformat(end_time) if end_time else None
+#         )
+#         db.session.add(new_schedule)
+#         db.session.commit()
+#         return jsonify({'message': 'Schedule added successfully!'})
+#     except Exception as e:
+#         print("Error saving schedule:", e)
+#         return jsonify({'error': 'Could not save schedule'}), 500
+
+
 @app.route('/get_tasks', methods=['GET'])
 def get_tasks():
     tasks = Task.query.all()
@@ -132,6 +161,53 @@ def login():
 def logout():
     session.pop('user_id', None)
     return jsonify({'message': 'Logged out'})
+
+@app.route('/update_schedule/<int:schedule_id>', methods=['PUT'])
+def update_schedule(schedule_id):
+    data = request.json
+    new_time = data.get('start_time')
+    schedule = Schedule.query.get(schedule_id)
+    if schedule and new_time:
+        schedule.start_time = datetime.fromisoformat(new_time)
+        db.session.commit()
+        return jsonify({'message': 'Schedule updated'})
+    return jsonify({'error': 'Invalid schedule or time'}), 400
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/<path:filename>')
+def serve_static_files(filename):
+    static_dir = os.path.join(app.root_path, 'static')
+    return send_from_directory(static_dir, filename)
+
+@app.route('/add_schedule', methods=['POST'])
+def add_schedule():
+    data = request.get_json()
+    title = data.get('title')
+    description = data.get('description')
+    start_time = data.get('start_time')
+    end_time = data.get('end_time')
+
+    if not title or not start_time:
+        return jsonify({'error': 'Missing title or start time'}), 400
+
+    try:
+        new_schedule = Schedule(
+            title=title,
+            description=description,
+            start_time=datetime.fromisoformat(start_time),
+            end_time=datetime.fromisoformat(end_time) if end_time else None
+        )
+        db.session.add(new_schedule)
+        db.session.commit()
+        return jsonify({'message': 'Schedule added successfully!'})
+    except Exception as e:
+        print("Error saving schedule:", e)
+        return jsonify({'error': 'Could not save schedule'}), 500
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
