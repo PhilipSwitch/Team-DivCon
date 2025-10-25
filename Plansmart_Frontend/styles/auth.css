@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=BBH+Sans+Hegarty&family=Caprasimo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=BBH+Sans+Hegarty&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'BBH Sans Hegarty';
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, rgb(146, 53, 213), rgb(153, 152, 152));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-box {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    width: 350px;
+    box-shadow: 0 8px 25px rgb(53, 53, 53);
+    text-align: center;
+    transition: 0.4s ease;
+    overflow: hidden;
+}
+
+.toggle-buttons button {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+    font-weight: 100;
+    color: rgb(90, 30, 150);
+    transition: 0.3s;
+    margin: 20px;
+}
+
+.toggle-buttons button.active {
+    background: rgb(146, 53, 213);
+    color: white;
+}
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.form-box .login {
+    width: 70px;
+}
+
+.hidden {
+    display: none;
+}
+
+h1 {
+    font-size: 1.8rem;
+    color: rgb(90, 30, 150);
+    margin-bottom: 10px;
+}
+
+p {
+    color: grey;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+input {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: rgb(146, 53, 213, 0.4);
+    box-shadow: 0 0 5px rgba(146, 53, 213, 0.4);
+}
+
+button[type="submit"] {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: rgb(146, 53, 213);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button[type="submit"]:hover {
+    background: rgb(120, 40, 180);
+}
