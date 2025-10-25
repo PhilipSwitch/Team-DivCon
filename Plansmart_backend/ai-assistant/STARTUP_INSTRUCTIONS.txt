@@ -1,0 +1,78 @@
+==========================================
+PLANSMART - STARTUP INSTRUCTIONS
+==========================================
+
+IMPORTANT: You must run BOTH the backend AND frontend for the application to work.
+
+========== STEP 1: Start the Backend ==========
+
+1. Open a Command Prompt (cmd.exe)
+2. Navigate to: c:\Users\bensa\Documents\Team-DivCon\Plansmart_backend\ai-assistant\backend
+3. Run: START_BACKEND.bat
+
+   OR manually run: python app.py
+
+4. You should see:
+   ==================================================
+   PLANSMART AI ASSISTANT
+   Mode: ✅ LLM-Powered (or 📝 Rule-Based)
+   ==================================================
+   
+   * Running on http://localhost:5000
+
+✅ The backend is now running on PORT 5000
+
+========== STEP 2: Start the Frontend ==========
+
+1. Open a NEW Command Prompt (keep the first one running)
+2. Navigate to: c:\Users\bensa\Documents\Team-DivCon\Plansmart_backend\ai-assistant\frontend
+3. Run: START_FRONTEND.bat
+
+   OR manually run: python -m http.server 3000
+
+4. You should see:
+   Serving HTTP on 0.0.0.0 port 3000
+
+✅ The frontend is now running on PORT 3000
+
+========== STEP 3: Open the Application ==========
+
+1. Open your web browser
+2. Go to: http://localhost:3000/login.html
+3. You can either:
+   - Create a new account (Sign Up)
+   - Click "Continue as Guest" 
+   - Use demo credentials if available
+
+========== TROUBLESHOOTING ==========
+
+"Failed to fetch" Error:
+- Make sure BOTH backend (port 5000) and frontend (port 3000) are running
+- Check that no other application is using these ports
+- Check your firewall settings
+
+Backend not starting:
+- Make sure Python is installed
+- Run: pip install -r requirements.txt
+- Check that you're in the correct backend directory
+
+Frontend not loading:
+- Make sure the HTTP server started successfully
+- Try a different port if 3000 is already in use
+
+Connection refused:
+- Make sure both servers are running (check both command prompts)
+- Wait a few seconds after starting for servers to fully initialize
+
+========== PORTS REFERENCE ==========
+
+Backend:  http://localhost:5000
+Frontend: http://localhost:3000
+
+CORS Origins configured for:
+- http://localhost:3000 (Frontend)
+- http://localhost:5000 (Backend for dev)
+- http://127.0.0.1:3000 (Localhost alternative)
+- http://127.0.0.1:5000 (Localhost alternative)
+
+==========================================

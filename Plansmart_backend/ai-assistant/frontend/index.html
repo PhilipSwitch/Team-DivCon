@@ -5,31 +5,70 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>PLANSMART DASHBOARD</title>
         <link rel="stylesheet" href="styles.css">
-        <link rel="preconnect" href="https://fonts.google.com" />
     </head>
     <body>
-        <div class="main">
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <button class="login" id="login">Login</button>
-                <div class="tasks-section">
-                    <h2>Tasks</h2>
-                    <ul id="tasks-list"></ul>
+        <div class="dashboard">
+            <!-- Header -->
+            <div class="dashboard-header">
+                <h1>🎯 PLANSMART Dashboard</h1>
+                <div class="header-actions">
+                    <button class="login-btn" id="login">Login</button>
                 </div>
             </div>
-            <!-- Main Content -->
-            <div class="main-content">
-                <div class="textpage" id="textpage">
-                    <button class="voice-chat" id="voice-btn">🎤</button>
-                    <p id="transcript">Click the button and speak your request...</p>
+
+            <!-- Main Body -->
+            <div class="dashboard-body">
+                <!-- Left Sidebar -->
+                <div class="sidebar-panel">
+                    <!-- Quick Actions -->
+                    <div class="sidebar-section">
+                        <h3>📊 Quick Actions</h3>
+                        <div class="sidebar-buttons">
+                            <button class="sidebar-btn" id="add-schedule-btn">+ Add Schedule</button>
+                            <button class="sidebar-btn" id="add-task-btn">+ Add Task</button>
+                            <button class="sidebar-btn" id="task-overview-btn">📊 View Overview</button>
+                        </div>
+                    </div>
+
+                    <!-- Tasks Section -->
+                    <div class="sidebar-section">
+                        <h3>✓ My Tasks</h3>
+                        <div class="tasks-section">
+                            <ul id="tasks-list" style="list-style: none; padding: 0; margin: 0;"></ul>
+                        </div>
+                    </div>
+
+                    <!-- Schedules Section -->
+                    <div class="sidebar-section">
+                        <h3>📅 My Schedules</h3>
+                        <div class="schedules-section">
+                            <ul id="schedules-list" style="list-style: none; padding: 0; margin: 0;"></ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="text-input">
-                    <input type="text" placeholder="Planning issues? Let's have a chat..." class="input">
-                    <button class="send-btn" id="send-btn">
-                    </button>
+
+                <!-- Main Content Area -->
+                <div class="main-panel">
+                    <div class="chat-area" id="textpage">
+                        <div class="chat-container">
+                            <div class="voice-button-container">
+                                <div>🎤 Voice Assistant</div>
+                                <button class="voice-chat" id="voice-btn">🎙</button>
+                                <small>Click to start voice input</small>
+                            </div>
+                        </div>
+                        <div id="transcript"></div>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="input-area">
+                        <input type="text" placeholder="Type your message or click the mic..." class="input">
+                        <button class="send-btn" id="send-btn"></button>
+                    </div>
                 </div>
             </div>
         </div>
+
         <script src="script.js"></script>
     </body>
 </html>
