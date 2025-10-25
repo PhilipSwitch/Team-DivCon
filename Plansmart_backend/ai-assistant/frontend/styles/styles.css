@@ -69,6 +69,67 @@ html, body {
     align-items: flex-start;
     padding: 20px;
     border-right: 1px solid #ddd;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-btn {
+    background: linear-gradient(135deg, rgb(174, 89, 234) 0%, rgb(146, 53, 213) 100%);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    margin: 10px 0;
+    margin-top: 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(174, 89, 234, 0.3);
+    width: 100%;
+    opacity: 0.4;
+}
+
+.nav-btn:hover {
+    background: linear-gradient(135deg, rgb(146, 53, 213) 0%, rgb(120, 30, 190) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(174, 89, 234, 0.4);
+}
+
+.nav-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(174, 89, 234, 0.3);
+}
+
+.login {
+    background: linear-gradient(135deg, rgb(150, 100, 200) 0%, rgb(120, 80, 180) 100%);
+    color: white;
+    border: none;
+    width: 60px;
+    height: 60px;
+    margin: 15px 0;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(150, 100, 200, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+}
+
+.login:hover {
+    background: linear-gradient(135deg, rgb(120, 80, 180) 0%, rgb(100, 60, 160) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(150, 100, 200, 0.4);
+}
+
+.login:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(150, 100, 200, 0.3);
 }
 
 .main-content {
@@ -143,6 +204,10 @@ html, body {
     }
 }
 
+#transcript {
+    color: rgb(100, 0, 150);
+}
+
 .input {
     border: none;
     width: 700px;
@@ -171,6 +236,19 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.edit-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-btn:hover {
+    background-color: #45a049;
 }
 
 

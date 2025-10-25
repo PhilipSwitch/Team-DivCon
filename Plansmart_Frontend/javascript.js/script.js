@@ -34,20 +34,8 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
                 interimTranscript += transcript;
             }
         }
-        // Update interim display without overwriting history
-        const lastMessage = transcriptEl.lastElementChild;
-        if (lastMessage && lastMessage.classList.contains('interim')) {
-            lastMessage.textContent = `You (interim): "${finalTranscript}${interimTranscript}"`;
-        } else {
-            transcriptEl.innerHTML += `<p class="interim">You (interim): "${finalTranscript}${interimTranscript}"</p>`;
-        }
-        transcriptEl.scrollTop = transcriptEl.scrollHeight; // Auto-scroll
+        transcriptEl.textContent = `You said: "${finalTranscript}${interimTranscript}"`;
         if (finalTranscript) {
-            // Append final user message
-            transcriptEl.innerHTML += `<p>You: "${finalTranscript}"</p>`;
-            // Remove interim
-            const interimEl = transcriptEl.querySelector('.interim');
-            if (interimEl) interimEl.remove();
             processVoiceInput(finalTranscript);
             finalTranscript = ''; // Reset for next utterance
         }
@@ -101,39 +89,16 @@ async function processVoiceInput(text) {
         });
         const data = await response.json();
         console.log('Processed:', data);
-        // Display AI response
-        displayMessage(data.message);
-        // Check if query is present, load filtered tasks
-        if (data.parsed.query.completed !== undefined) {
-            loadTasks(data.parsed.query.completed);
-        } else {
-            loadTasks();
-        }
+        loadTasks();
         loadSchedules();
     } catch (error) {
         console.error('Error processing input:', error);
     }
 }
 
-function displayMessage(message) {
-    const transcriptEl = document.getElementById('transcript');
-    // Append AI response to conversation history
-    transcriptEl.innerHTML += `<p>AI: ${message}</p>`;
-    transcriptEl.scrollTop = transcriptEl.scrollHeight; // Auto-scroll
-    // Add TTS for AI responses
-    if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(message);
-        window.speechSynthesis.speak(utterance);
-    }
-}
-
-async function loadTasks(completedFilter) {
+async function loadTasks() {
     try {
-        let url = 'http://localhost:5000/get_tasks';
-        if (completedFilter !== undefined) {
-            url += `?completed=${completedFilter}`;
-        }
-        const response = await fetch(url);
+        const response = await fetch('http://localhost:5000/get_tasks');
         const tasks = await response.json();
         tasksList.innerHTML = '';
         tasks.forEach(task => {
@@ -159,31 +124,11 @@ async function loadSchedules() {
             const li = document.createElement('li');
             li.innerHTML = `
                 <span>${schedule.title} - ${new Date(schedule.start_time).toLocaleString()}</span>
-                <button class="edit-btn" onclick="editSchedule(${schedule.id}, '${schedule.title}', '${schedule.start_time}')">Edit</button>
             `;
             schedulesList.appendChild(li);
         });
     } catch (error) {
         console.error('Error loading schedules:', error);
-    }
-}
-
-async function editSchedule(id, title, startTime) {
-    const newTitle = prompt('Edit title:', title);
-    const newTime = prompt('Edit start time (YYYY-MM-DDTHH:MM):', new Date(startTime).toISOString().slice(0, 16));
-    if (newTitle && newTime) {
-        try {
-            await fetch(`http://localhost:5000/update_schedule/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ title: newTitle, start_time: newTime }),
-            });
-            loadSchedules();
-        } catch (error) {
-            console.error('Error updating schedule:', error);
-        }
     }
 }
 
@@ -202,9 +147,6 @@ async function markDone(taskId) {
 sendBtn.addEventListener('click', () => {
     const text = inputField.value.trim();
     if (text) {
-        // Append user message to transcript
-        transcriptEl.innerHTML += `<p>You: "${text}"</p>`;
-        transcriptEl.scrollTop = transcriptEl.scrollHeight;
         processVoiceInput(text);
         inputField.value = '';
     }
@@ -234,25 +176,6 @@ loginBtn.addEventListener('click', async () => {
             console.error('Error logging in:', error);
         }
     }
-});
-
-// Navigation functionality with AI integration
-document.getElementById('schedule-btn').addEventListener('click', () => {
-    // Trigger AI-guided schedule creation
-    const aiPrompt = "I want to add a new schedule. What details do you need?";
-    // Append user message to transcript
-    transcriptEl.innerHTML += `<p>You: "${aiPrompt}"</p>`;
-    transcriptEl.scrollTop = transcriptEl.scrollHeight;
-    processVoiceInput(aiPrompt);
-});
-
-document.getElementById('task-overview-btn').addEventListener('click', () => {
-    // Trigger AI-guided task overview
-    const aiPrompt = "Show me my tasks.";
-    // Append user message to transcript
-    transcriptEl.innerHTML += `<p>You: "${aiPrompt}"</p>`;
-    transcriptEl.scrollTop = transcriptEl.scrollHeight;
-    processVoiceInput(aiPrompt);
 });
 
 // Load data on page load
