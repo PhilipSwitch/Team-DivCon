@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PLANSMART DASHBOARD</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+        <link rel="preconnect" href="https://fonts.google.com" />
+    </head>
+    <body>
+        <div class="main">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <button class="login" id="login">Login</button>
+                <div class="tasks-section">
+                        <div class="schedules-section">
+                        <h2>Schedules</h2>
+                        <ul id="schedules-list"></ul>
+                        <button id="add-schedule-btn">Add Schedule</button>
+                        <button id="view-schedule-btn">View Schedules</button>
+                        </div>
+                    <h2>Tasks</h2>
+                    <ul id="tasks-list"></ul>
+
+                </div>
+            </div>
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="textpage" id="textpage">
+                    <button class="voice-chat" id="voice-btn">🎤</button>
+                    <p id="transcript">Click the button and speak your request...</p>
+                </div>
+                <div class="text-input">
+                    <input type="text" placeholder="Planning issues? Let's have a chat..." class="input">
+                    <button class="send-btn" id="send-btn">📨
+                    </button>
+                </div>
+            </div>
+        </div>
+                <!-- Schedule Modal -->
+<div id="schedule-modal" class="modal">
+  <div class="modal-content">
+    <h2>Add Schedule</h2>
+    <button id="schedule-voice-btn" class="voice-input-btn">🎤 Speak Schedule</button>
+    <input type="text" id="schedule-title" placeholder="Enter title">
+    <input type="time" id="schedule-time" placeholder="MM/DD/YYYY">
+    <textarea id="schedule-desc" placeholder="Enter your tasks (optional)"></textarea>
+    <div class="modal-buttons">
+      <button id="save-schedule">Save</button>
+      <button id="cancel-schedule">Cancel</button>
+    </div>
+  </div>
+</div>
+<!-- === Add Task Modal === -->
+<div id="add-task-modal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="close-task-modal">&times;</span>
+    <h2>Add Task</h2>
+    <button id="task-voice-btn" class="voice-input-btn">🎤 Speak Task</button>
+
+    <label for="task-schedule-select">Select Schedule:</label>
+    <select id="task-schedule-select">
+      <option value="">-- Choose Schedule --</option>
+    </select>
+
+    <label for="task-title-input">Task Title:</label>
+    <input type="text" id="task-title-input" placeholder="Enter task title" />
+
+    <label for="task-due-input">Due Date & Time:</label>
+    <input type="datetime-local" id="task-due-input" />
+
+    <button id="submit-task-btn">Add Task</button>
+  </div>
+</div>
+
+<!-- === Confirm Completion Modal === -->
+<div id="confirm-completion-modal" class="modal">
+  <div class="modal-content confirm-box">
+    <h2>✅ Mark Schedule as Complete?</h2>
+    <p>Are you sure you want to mark this schedule as completed?</p>
+    <div class="modal-buttons">
+      <button id="confirm-complete-btn">Yes, Complete</button>
+      <button id="cancel-complete-btn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+    </body>
+</html>
